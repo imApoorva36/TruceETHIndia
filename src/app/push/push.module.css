@@ -1,0 +1,91 @@
+.scoreboard {
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: calc( 100vh - var(--footer-height) - var(--header-height));
+    background-color: #040110;
+  
+  }
+  .title {
+    font-size: 46px;
+    font-weight: bold;
+  }
+  
+  .hr {
+    border: none;
+    border-top: 2px solid #3498db;
+    margin: 20px auto;
+    width: 50%;
+  }
+  
+  .userScore {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #3498db;
+    position: relative;
+  }
+  
+  .userScore_text::after {
+    content: "|"; /* The cursor symbol (you can change it to any character you like) */
+    animation: cursor-blink 1s infinite; /* Blinking animation */
+    opacity: 0.6; /* Slightly transparent */
+    position: absolute;
+    top: 0;
+    right: auto; /* Position the cursor at the end of the text */
+  }
+  
+  @keyframes cursor-blink {
+    0%, 100% {
+      opacity: 0; /* Cursor is invisible at the start and end of animation */
+    }
+    50% {
+      opacity: 0.5; /* Cursor is visible halfway through animation */
+    }
+  }
+  
+  .scoreTable {
+    width: 70%;
+    margin: auto;
+    border-collapse: collapse;
+  }
+  
+  .scoreTable thead {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  .scoreTable th, .scoreTable td {
+    padding: 10px;
+  }
+  
+  .tablebody {
+    background-color: #222;
+  }
+  
+  .scoreRow:nth-child(even) {
+    background-color: #2f2f2f;
+  }
+  
+  .scoreRow {
+    transition: background-color 0.1s; /* Add a smooth transition effect */
+  }
+  
+  .scoreRow:hover {
+    background-color: #26265b; /* Deep blue color on row hover */
+  }
+  
+  
+  .loading {
+    font-size: 24px;
+    color: #3498db;
+    font-weight: bold;
+  }
+  
+  .pd-top {
+    padding-top: 20px;
+  }
+  
+  /* Add any additional styles you need here */
+  
