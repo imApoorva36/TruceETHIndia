@@ -1,3 +1,27 @@
 .home {
-    
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg);
+}
+
+.home .content {
+    padding: 20px;
+    margin-left: 300px;
+    color: var(--color);
+}
+
+.home .content h1 {
+    font-size: 70px;
+}
+
+.home .content h2 {
+    margin-bottom: 40px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.home .buttons {
+    display: flex;
+    gap: 10px;
 }
