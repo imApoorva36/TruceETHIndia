@@ -7,6 +7,7 @@ import useWallet from '@/app/_helpers/wallet'
 import { useRouter } from 'next/navigation'
 import AddIncome from './AddIncome'
 import AddExpenditure from './AddExpenditure'
+import ExpenditureModal from './expenmodal'
 
 export default function Organisation ({ params }) {
     let router = useRouter()
@@ -114,7 +115,11 @@ export default function Organisation ({ params }) {
                     <div className={s.income}>
                         <div className={s.head}>
                             <h2>Fund Analysis</h2>
-                            <div className="button bright" onClick={() => setAddIncome(true)}>Add Funding Category</div>
+                            {
+                                owner ? 
+                                    <div className="button bright" onClick={() => setAddIncome(true)}>Add Funding Category</div>
+                                : null
+                            }
                         </div><br />
                         <div className={s.table}>
                             <div className={s.heading}>
@@ -149,7 +154,11 @@ export default function Organisation ({ params }) {
                     <div className={s.income}>
                         <div className={s.head}>
                             <h2>Expenditure Analysis</h2>
-                            <div className="button bright" onClick={() => setAddExpenditure(true)}>Add Expenditure Category</div>
+                            {
+                                owner ?
+                                    <div className="button bright" onClick={() => setAddExpenditure(true)}>Add Expenditure Category</div>
+                                : null
+                            }
                         </div><br />
                         <div className={s.table}>
                             <div className={s.heading}>
@@ -172,7 +181,13 @@ export default function Organisation ({ params }) {
                                                         </span>
                                                     </div>
                                                     <div>
-                                                        <Modal isOpen={isEModalOpen == i} closeModal={closeEModal} category={selectedECategory} catid = {i} orgid = {params.id} />
+                                                        <ExpenditureModal 
+                                                            isOpen={isEModalOpen == i} 
+                                                            closeModal={closeEModal} 
+                                                            category={selectedECategory} 
+                                                            catid = {i} 
+                                                            orgid = {params.id} 
+                                                        />
                                                     </div>
                                                 </>
                                                 : null

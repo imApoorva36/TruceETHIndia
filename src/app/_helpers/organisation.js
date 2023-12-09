@@ -54,3 +54,11 @@ export async function createExpenditureCategory (org_id, name, eth) {
     })
 
 }
+
+export async function OrganisationExpenditure (org_id, cat_id, amt, det_addr, eth) {
+    let org = Organisation(eth, true)
+
+    const txHash = await org.OrganizationSpend(org_id, cat_id, det_addr, parseFloat(amt) * Math.pow(10, 18), {
+        gasLimit: 300000
+    })
+}
