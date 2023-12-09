@@ -1,0 +1,4 @@
+.create form textarea {
+    height: auto;
+    overflow-y: hidden;
+}
