@@ -30,3 +30,8 @@ export async function sendFunds (id, amt, eth) {
         value: ethers.utils.parseEther(amt)
     })
 }
+
+export async function getOrganizationDetails (id, eth) {
+    let org = Organisation(eth, false)
+    return await org.getOrganizationDetails(id)
+}

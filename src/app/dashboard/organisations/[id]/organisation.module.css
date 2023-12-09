@@ -1,0 +1,83 @@
+.organisation {
+    margin: 20px;
+}
+
+.organisation .header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.organisation .header img {
+    width: 120px;
+}
+
+.organisation .header h1 {
+    font-size: 50px;
+}
+
+.organisation .details {
+    border-bottom: 5px dotted var(--accent);
+}
+
+.organisation .details h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.organisation .details h2 span {
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.organisation .details p {
+    margin-bottom: 20px;
+}
+
+.income {
+    margin: 20px;
+}
+
+.income h2 {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+
+
+
+
+
+
+.table {
+    width: 100%;
+}
+
+.table div {
+    width: 100%;
+    padding: 15px 10px;
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 1fr 8fr 3fr;
+    text-align: center;
+    cursor: pointer;
+    transition: 100ms;
+}
+
+.table div:nth-child(odd) {
+    background-color: var(--accent-transparent);
+}
+
+.table div:hover {
+    background-color: #15145f;
+}
+
+.table div.heading {
+    font-size: 22px;
+    font-weight: 800;
+    background-color: var(--accent);
+    cursor: default;
+}
