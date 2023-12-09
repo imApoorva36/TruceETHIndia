@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import Web3 from "web3"
 
 export default function useWallet () {
-    let [ address, setAddress ] = useState(null)
+    let [ address, setAddress ] = useState(localStorage.getItem("wallet_address"))
 
     function setWallet (address) {
         localStorage.setItem("wallet_address", address)
@@ -31,11 +31,5 @@ export default function useWallet () {
     async function logout () {
         setWallet(null)
     }
-
-    useEffect(() => {
-        setAddress(localStorage.getItem("wallet_address"))
-    }, [])
-
-
     return [ address, login, logout ]
 }

@@ -1,10 +1,12 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import useWallet from "./_helpers/wallet"
 import s from "./home.module.css"
 
 export default function Home () {
 	let [ wallet, login, logout ] = useWallet()
+	let router = useRouter()
 
 	return (
 		<main className = {s.home}>
@@ -17,12 +19,11 @@ export default function Home () {
 							wallet == null
 							?
 							<>
-								<div className="button bright" onClick={login}>Register</div>
-								<div className="button minimal">Login</div>
+								<div className="button bright" onClick={login}>Login</div>
 							</>
 							:
 							<>
-								<div className="button bright">Dashboard</div>
+								<div className="button bright" onClick={() => router.push("/dashboard")}>Dashboard</div>
 								<div className="button minimal" onClick={logout}>Logout</div>
 							</>
 						}

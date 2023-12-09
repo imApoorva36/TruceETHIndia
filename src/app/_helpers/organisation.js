@@ -1,9 +1,8 @@
 import { ethers } from 'ethers'
 import Organisation from '../_contracts/organisation'
 
-export async function getOrganisations (wallet, eth) {
+export async function getOrganisations (eth) {
     let value = await Organisation(eth, false).getAllOrganizations()
-
     return value
 }
 

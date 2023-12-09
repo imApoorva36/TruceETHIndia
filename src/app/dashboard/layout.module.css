@@ -1,0 +1,33 @@
+.layout {
+    height: 100vh;
+    background-color: var(--bg);
+    color: var(--color);
+    display: grid;
+    grid-template-columns: 350px 1fr;
+}
+
+.layout .left {
+    border-right: 1px solid var(--accent);
+    padding: 20px;
+}
+
+.layout .left ul {
+    list-style-type: none;
+    margin: 20px 0px;
+}
+
+.layout .left ul li {
+    padding: 10px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50px;
+    margin: 15px 0px;
+}
+
+.layout .left ul li:hover {
+    background-color: var(--accent-transparent);
+}
+
+.layout .left ul li.active {
+    background-color: var(--accent);
+}
