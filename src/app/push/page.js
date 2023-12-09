@@ -69,6 +69,59 @@ const ScoreboardPage = () => {
             // extracting channel address . To be passed to the subscriber
             const channelInfo = await userAlice.channel.info();
             const channelAddress = channelInfo.channel;
+
+                //creating group chat variables
+                const groupName = "Example Group nitk 2 ";
+                const groupDescription = "This is an example group.";
+                const groupImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAz0lEQVR4AcXBsU0EQQyG0e+saWJ7oACiKYDMEZVs6GgSpC2BIhzRwAS0sgk9HKn3gpFOAv3v3V4/3+4U4Z1q5KTy42Ql940qvFONnFSGmCFmiN2+fj7uCBlihpgh1ngwcvKfwjuVIWaIGWKNB+GdauSk8uNkJfeNKryzYogZYoZY40m5b/wlQ8wQM8TayMlKeKcaOVkJ71QjJyuGmCFmiDUe+HFy4VyEd57hx0mV+0ZliBlihlgL71w4FyMnVXhnZeSkiu93qheuDDFDzBD7BcCyMAOfy204AAAAAElFTkSuQmCC"; // example base64 encoded image string
+                //Wallet address of  subscribers 
+                const walletAddress1 = "0x40ead570f73f472a95D57Bd95d3792E837C9b51E";
+    
+    
+    
+                // You can have an array of wallet addresses as members 
+    
+                const newGroup = await userAlice.chat.group.create(groupName,
+                  {
+                    description: groupDescription,
+                    image: groupImage,
+                    members: [walletAddress1],
+                    admins: [],
+                    private: false,
+                    rules: {
+                      entry: { conditions: [] },
+                      chat: { conditions: [] },
+                    },
+                  },
+                );
+                
+    
+                //Group chatId . To be used for sending messages . This is even needed by the subscriber to send messages in the group 
+                // chatID can be directly taken from DApp too 
+    
+                const groupChatId = newGroup.chatId;
+                console.log("groupChatId =  ",groupChatId);
+    
+    
+              // message to be sent to the group
+                const sendGroupMessage = await userAlice.chat.send(groupChatId, {
+                  type: "Text",
+                  content: "Hello  this is my first messsage in group chat ",
+                });
+    
+               // collect  messages  of the group 
+
+               //change the value of 'tempGroupChatID' to the groupChatId  required by you . DONT HARDCOE
+    
+               const tempGroupChatID = "5b9b6346c8082d9beb121f080d103e709d31ed26f3dc882f592741beb8a55784"
+              // Fetches historical messages between your instantiated user and any other user (or group). This gets you alll the messsages
+    
+                const groupMessages = await userAlice.chat.history(tempGroupChatID);
+                console.log("groupMessages = ",groupMessages);
+    
+    
+    
+    
                
             const response1 = await userAlice.channel.send(["*"], {
                 notification: {
