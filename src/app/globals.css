@@ -1,5 +1,35 @@
+:root {
+	--color: #ffffff;
+	--lcolor: #cccccc;
+	--bg: #1d013d;
+	--lbg: #2f0263; 
+	--accent: #6000cf;
+}
+
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+
+
+
+
+.button {
+	display: inline;
+	padding: 10px 25px;
+	border-radius: 5px;
+	font-weight: 600;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.button.minimal {
+	border: 2px solid var(--accent);
+	color: var(--accent);
+}
+
+.button.bright {
+	color: var(--color);
+	background-color: var(--accent);
 }
