@@ -7,6 +7,7 @@ import useWallet from "@/app/_helpers/wallet"
 import { PushAPI, CONSTANTS } from "@pushprotocol/restapi"
 import { ethers } from "ethers"
 import InputSettings from "./InputSettings"
+import { useRouter } from "next/navigation"
 
 export default function Create () {
     let [ name, setName ] = useState("")
@@ -14,6 +15,8 @@ export default function Create () {
     let [ description, setDescription ] = useState("")
     let [ loadingChannel, setLoadingChannel ] = useState(0)
     let [ groups, setGroups ] = useState([])
+
+    let router = useRouter()
 
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -27,22 +30,32 @@ export default function Create () {
         setLoadingChannel(1)
         // userAlice.channel.create({options})
 
-        const userAlice = await PushAPI.initialize(signer, { env: CONSTANTS.ENV.STAGING });
+        let exists
+        try {
+            const userAlice = await PushAPI.initialize(signer, { env: CONSTANTS.ENV.STAGING })
+            let channel = await userAlice.channel.info()
+            if (!channel) throw new Error()
 
-
-         // Create a channel
-        try {    
-            const response = await userAlice.channel.create({
-                name: name,
-                description: description,
-                icon: "https://api.dicebear.com/7.x/identicon/svg?seed=" + wallet,
-                url: "https://ethglobal.com/",
-            })
-
-            setLoadingChannel(2)
-        } catch (err) {
-            console.log("Error: ", err)
+            exists = true
+        } catch {
+            exists = false
         }
+
+        if (!exists) {
+            try {    
+                const response = await userAlice.channel.create({
+                    name: name,
+                    description: description,
+                    icon: "https://api.dicebear.com/7.x/identicon/svg?seed=" + wallet,
+                    url: "https://ethglobal.com/",
+                })
+            } catch (err) {
+                console.log("Error: ", err)
+            }
+        }
+
+        let res = await createOrganisation(wallet, name, description, window.ethereum)
+        setLoadingChannel(2)
     }
 
     async function createGroups () {
@@ -56,17 +69,18 @@ export default function Create () {
                 default: 0,
                 description: group,
             }
-        )));
+        )))
 
+        router.push("/dashboard")        
     }
 
     return (
         <div className={s.create}>
             <h1>Create Organisation</h1>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <input placeholder="Organisation Name" type="text" value = {name} onChange = {e => setName(e.target.value)} disabled = {loadingChannel == 2}/>
                 <textarea placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} disabled = {loadingChannel == 2} rows={4}></textarea>
-                <div className={`button bright ${loadingChannel == 2 ? "disabled" : ""}`} type="submit">Submit</div>
+                <div onClick={handleSubmit} className={`button bright ${loadingChannel == 2 ? "disabled" : ""}`} type="submit">Submit</div>
             </form>
             <br />
             { loadingChannel == 1 ? "Loading..." : null}

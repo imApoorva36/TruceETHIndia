@@ -5,8 +5,15 @@
 .organisation .header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 30px;
     margin-bottom: 30px;
+}
+
+.organisation .header .left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 .organisation .header img {

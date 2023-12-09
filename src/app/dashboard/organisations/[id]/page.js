@@ -4,8 +4,11 @@ import s from './organisation.module.css'
 import { useEffect, useState } from "react"
 import Modal from './paymodal'
 import useWallet from '@/app/_helpers/wallet'
+import { useRouter } from 'next/navigation'
 
 export default function Organisation ({ params }) {
+    let router = useRouter()
+
     let [ details, setDetails ] = useState(null)
     let [ isIModalOpen, setIsIModalOpen] = useState(-1);
     let [ selectedICategory, setSelectedICategory] = useState('');
@@ -66,8 +69,15 @@ export default function Organisation ({ params }) {
                 details != null ?
                 <>
                     <div className={s.header}>
-                        <img src={"https://api.dicebear.com/7.x/identicon/svg?seed=" + details.owner} alt="" />
-                        <h1>{details.name}</h1>
+                        <div className={s.left}>
+                            <img src={"https://api.dicebear.com/7.x/identicon/svg?seed=" + details.owner} alt="" />
+                            <h1>{details.name}</h1>
+                        </div>
+                        <div className={s.right}>
+                            <div className="button minimal" onClick={() => router.push(`/dashboard/organisations/${params.id}/notifications`)}>
+                                Opt-in
+                            </div>
+                        </div>
                     </div>
                     <div className={s.details}>
                         <div className={s.detailsleft}>
