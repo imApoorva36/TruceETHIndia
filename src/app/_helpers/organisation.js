@@ -24,7 +24,7 @@ export async function getOrganizationsByAddress (wallet, eth) {
     return res
 }
 
-export async function sendFunds (wallet, id, amt, eth) {
+export async function sendFunds (id, amt, eth) {
     let org = Organisation(eth, true)
     return await org.sendFunds(id, {
         value: ethers.utils.parseEther(amt)

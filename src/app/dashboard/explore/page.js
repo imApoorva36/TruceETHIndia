@@ -43,18 +43,11 @@ export default function Dashboard () {
         console.log(res)
     }
 
-    async function handleSendMoney (e) {
-        e.preventDefault()
-        let res = await sendFunds(wallet, id, "0.001", window.ethereum)
-        console.log(res)
-    }
+
 
     return (
         <main className={s.dashboard}>
-            {/* <form onSubmit={handleSubmit}>
-                <input type="text" value = {name} onChange = {e => setName(e.target.value)} />
-                <button type="submit">Submit</button>
-            </form>
+            {/*
 
             <button onClick={handleGet}>get</button>
             <button onClick={byID}>BY ID</button>
