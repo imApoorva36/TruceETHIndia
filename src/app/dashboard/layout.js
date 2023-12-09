@@ -13,8 +13,8 @@ export default function DashboardLayout ({ children }) {
                 <h1>OrgETH</h1>
                 <ul>
                     <li className = {segment == "explore" ? s.active : ""} onClick = {() => router.push("/dashboard/explore")}>Explore</li>
-                    <li className = {segment == "organisations" ? s.active : ""}>Your Organisations</li>
-                    <li className = {segment == "create" ? s.active : ""} onClick = {() => router.push("/dashboard/create")}>Create Organisation</li>
+                    <li className = {segment == "create" ? s.active : ""} onClick = {() => router.push("/dashboard/create")}>Your Organisation</li>
+                    <li className = {segment == "organisations" ? s.active : ""}>Follow Organisations</li>
                 </ul>
             </div>
             <div className={s.right}>

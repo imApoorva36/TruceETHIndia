@@ -1,5 +1,6 @@
 "use client"
 
+import s from './organisation.module.css'
 import { sendFunds } from "@/app/_helpers/organisation"
 import { useState } from "react"
 
@@ -14,9 +15,8 @@ export default function Organisation ({ params }) {
     }
 
     return (
-        <form onSubmit = {handleSendMoney}>
-            <input type="text" value = {value} onChange={e => setValue(e.target.value)}/>
-            <button type="submit">Send</button>
-        </form>
+        <div className={s.organisation}>
+            
+        </div>
     )
 }
