@@ -44,3 +44,13 @@ export async function sendFunds (org_id, cat_id, amt, eth) {
         value: ethers.utils.parseEther(amt)
     })
 }
+
+
+export async function createExpenditureCategory (org_id, name, eth) {
+    let org = Organisation(eth, true)
+
+    const txHash = await org.createExpenditureCategory(org_id, name, {
+        gasLimit: 300000
+    })
+
+}

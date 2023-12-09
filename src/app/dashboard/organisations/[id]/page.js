@@ -5,6 +5,8 @@ import { useEffect, useState } from "react"
 import Modal from './paymodal'
 import useWallet from '@/app/_helpers/wallet'
 import { useRouter } from 'next/navigation'
+import AddIncome from './AddIncome'
+import AddExpenditure from './AddExpenditure'
 
 export default function Organisation ({ params }) {
     let router = useRouter()
@@ -15,6 +17,9 @@ export default function Organisation ({ params }) {
      
     let [ isEModalOpen, setIsEModalOpen] = useState(-1);
     let [ selectedECategory, setSelectedECategory] = useState('');
+
+    let [ addIncome, setAddIncome ] = useState(false)
+    let [ addExpenditure, setAddExpenditure] = useState(false)
     
     let [ wallet, login, logout ] = useWallet()
 
@@ -23,25 +28,33 @@ export default function Organisation ({ params }) {
     useEffect(() => {
         async function getData () {
             let res = await getOrganizationDetails(params.id, window.ethereum)
-                let data =  {
-                    name: res[0],
-                    description: res[1],
-                    owner: res[2],
-                    balance: parseInt(res[3]._hex) * Math.pow(10, -18),
-                    incomeCategories: res[4].map((name, i) => {
-                        let amt = res[5][i]
-                        return {
-                            name: name,
-                            amount: (amt._hex) * Math.pow(10, -18)
-                        }
-                    })
-                }
+            let data =  {
+                name: res[0],
+                description: res[1],
+                owner: res[2],
+                balance: parseInt(res[3]._hex) * Math.pow(10, -18),
+                incomeCategories: res[4].map((name, i) => {
+                    let amt = res[5][i]
+                    return {
+                        name: name,
+                        amount: (amt._hex) * Math.pow(10, -18)
+                    }
+                }),
+                expenditureCategories: res[6].map((name, i) => {
+                    let amt = res[7][i]
+                    return {
+                        name: name,
+                        amount: (amt._hex) * Math.pow(10, -18)
+                    }
+                })
+            }
 
             setDetails(data)
         }
 
         getData()
     }, [])
+
     const openIModal = (category, i) => {
         setSelectedICategory(category);
         setIsIModalOpen(i);
@@ -65,6 +78,19 @@ export default function Organisation ({ params }) {
       };
     return (
         <div className={s.organisation}>
+            
+            <AddIncome
+                open = {addIncome} 
+                close = {() => setAddIncome(false)} 
+                orgid = {params.id}
+            />
+
+            <AddExpenditure
+                open = {addExpenditure} 
+                close = {() => setAddExpenditure(false)} 
+                orgid = {params.id}
+            />
+
             {
                 details != null ?
                 <>
@@ -87,14 +113,14 @@ export default function Organisation ({ params }) {
                     </div>
                     <div className={s.income}>
                         <div className={s.head}>
-                            <h2>Income Analysis</h2>
-                            <button className={s.formalButton} onClick={createCategory}>Add an income Category ? </button>
+                            <h2>Fund Analysis</h2>
+                            <div className="button bright" onClick={() => setAddIncome(true)}>Add Funding Category</div>
                         </div><br />
                         <div className={s.table}>
                             <div className={s.heading}>
                                 <span>S. No.</span>
                                 <span>Category</span>
-                                <span>Income</span>
+                                <span>Amount</span>
                             </div>
                             {
                                 details.incomeCategories.map((d, i) => (
@@ -121,9 +147,9 @@ export default function Organisation ({ params }) {
                         </div>
                     </div>
                     <div className={s.income}>
-                        <h2>Expenditure Analysis</h2><br />
                         <div className={s.head}>
-                            <button className={s.formalButton} onClick={createCategory}>Add an expenditure  Category ? </button>
+                            <h2>Expenditure Analysis</h2>
+                            <div className="button bright" onClick={() => setAddExpenditure(true)}>Add Expenditure Category</div>
                         </div><br />
                         <div className={s.table}>
                             <div className={s.heading}>
@@ -132,7 +158,7 @@ export default function Organisation ({ params }) {
                                 <span>Expenditure</span>
                             </div>
                             {
-                                details.incomeCategories.map((d, i) => (
+                                details.expenditureCategories.map((d, i) => (
                                     <div key = {i}>
                                         <span>{i+1}.</span>
                                         <span>{d.name}</span>
