@@ -4,13 +4,14 @@ import { useEffect, useState } from "react"
 import useWallet from "../_helpers/wallet"
 import s from "./dashboard.module.css"
 // import { useRouter } from "next/router"
-import { createOrganisation, getOrganisations, getOrganizationDetailsByAddress } from "../_helpers/organisation"
+import { createOrganisation, getOrganisations, getOrganizationsByAddress, sendFunds } from "../_helpers/organisation"
 
 export default function Dashboard () {
     let [ wallet, login, logout ] = useWallet()
     let [ orgs, setOrgs ] = useState([])
     // let router = useRouter()
     let [ name, setName ] = useState("")
+    let [ id, setId ] = useState("")
 
     async function handleGet () { 
         let value = await getOrganisations(wallet, window.ethereum)
@@ -25,7 +26,13 @@ export default function Dashboard () {
     }
 
     async function byID () {
-        let res = await getOrganizationDetailsByAddress(wallet, window.ethereum)
+        let res = await getOrganizationsByAddress(wallet, window.ethereum)
+        console.log(res)
+    }
+
+    async function handleSendMoney (e) {
+        e.preventDefault()
+        let res = await sendFunds(wallet, id, "0.001", window.ethereum)
         console.log(res)
     }
 
@@ -38,6 +45,13 @@ export default function Dashboard () {
 
             <button onClick={handleGet}>get</button>
             <button onClick={byID}>BY ID</button>
+
+            <br /><br /><br />
+
+            <form onSubmit = {handleSendMoney}>
+                <input type="text" value = {id} onChange={e => setId(e.target.value)}/>
+                <button type="submit">Send</button>
+            </form>
         </main>
 
     )

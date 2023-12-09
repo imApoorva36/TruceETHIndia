@@ -17,10 +17,17 @@ export async function createOrganisation (wallet, name, desc, eth) {
     return txHash
 }
 
-export async function getOrganizationDetailsByAddress (wallet, eth) {
+export async function getOrganizationsByAddress (wallet, eth) {
     let org = Organisation(eth, false)
 
-    const res = await org.getOrganizationDetailsByAddress(wallet)
+    const res = await org.getOrganizationsByAddress(wallet)
 
     return res
+}
+
+export async function sendFunds (wallet, id, amt, eth) {
+    let org = Organisation(eth, true)
+    return await org.sendFunds(id, {
+        value: ethers.utils.parseEther(amt)
+    })
 }
