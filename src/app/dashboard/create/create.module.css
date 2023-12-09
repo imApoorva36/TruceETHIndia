@@ -1,4 +1,25 @@
-.create form textarea {
-    height: auto;
-    overflow-y: hidden;
+.create {
+    margin: 40px;
+}
+
+.create h1 {
+    font-size: 35px;
+}
+
+.create form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px 0px;
+}
+
+.create form div {
+    margin: 10px 0px;
+}
+
+
+.create .notifications h2 {
+    margin-bottom: 20px;
 }

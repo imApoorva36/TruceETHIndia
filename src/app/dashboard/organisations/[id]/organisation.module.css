@@ -98,6 +98,25 @@
     transition: 100ms;
 }
 
+.table>div>span.pay_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.table>div>span.pay_button>div {
+    background-color: transparent;
+}
+
+.table>div>span.pay_button>div>span {
+    font-size: 20px;
+    padding: 7px;
+    display: block;
+    background-color: var(--accent);
+    border-radius: 100px;
+}
+
 .table div:nth-child(odd) {
     background-color: var(--accent-transparent);
 }

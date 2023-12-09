@@ -1,5 +1,6 @@
 .layout {
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     background-color: var(--bg);
     color: var(--color);
     display: grid;
@@ -30,4 +31,8 @@
 
 .layout .left ul li.active {
     background-color: var(--accent);
+}
+
+.layout .right {
+    overflow-y: auto;
 }

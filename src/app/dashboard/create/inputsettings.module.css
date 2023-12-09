@@ -1,4 +1,13 @@
+.settings {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 500px;
+    gap: 10px;
+}
+
 .settings input {
-    display: block;
-    margin: 10px 0px;
+    padding: 10px;
+    font-size: 80%;
 }

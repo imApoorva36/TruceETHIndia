@@ -21,6 +21,8 @@ export default function Create () {
 
 
     async function handleSubmit (e) {
+        if (loadingChannel == 2) return
+
         e.preventDefault()
         setLoadingChannel(1)
         // userAlice.channel.create({options})
@@ -60,24 +62,25 @@ export default function Create () {
 
     return (
         <div className={s.create}>
+            <h1>Create Organisation</h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" value = {name} onChange = {e => setName(e.target.value)} disabled = {loadingChannel == 2}/>
-                <textarea value={description} onChange={e => setDescription(e.target.value)} disabled = {loadingChannel == 2}></textarea>
-                <button type="submit" disabled = {loadingChannel == 2}>Submit</button>
+                <input placeholder="Organisation Name" type="text" value = {name} onChange = {e => setName(e.target.value)} disabled = {loadingChannel == 2}/>
+                <textarea placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} disabled = {loadingChannel == 2} rows={4}></textarea>
+                <div className={`button bright ${loadingChannel == 2 ? "disabled" : ""}`} type="submit">Submit</div>
             </form>
             <br />
             { loadingChannel == 1 ? "Loading..." : null}
 
             {
                 loadingChannel == 2 ?
-                <>
+                <div className={s.notifications}>
                     <h2>Add Groups for Notifications</h2>
                     <InputSettings
                         groups = {groups}
                         setGroups = {setGroups}
                     />
-                    <button onClick = {createGroups}>Create</button>
-                </>
+                    <div className="button bright" onClick = {createGroups}>Create</div>
+                </div>
                 : null
             }
         </div>

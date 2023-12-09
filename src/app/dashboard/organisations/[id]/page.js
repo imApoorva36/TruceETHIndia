@@ -3,11 +3,19 @@ import { getOrganizationDetails, createCategory} from '@/app/_helpers/organisati
 import s from './organisation.module.css'
 import { useEffect, useState } from "react"
 import Modal from './paymodal'
+import useWallet from '@/app/_helpers/wallet'
 
 export default function Organisation ({ params }) {
     let [ details, setDetails ] = useState(null)
-    let [isModalOpen, setIsModalOpen] = useState(-1);
-    let [selectedCategory, setSelectedCategory] = useState('');
+    let [ isIModalOpen, setIsIModalOpen] = useState(-1);
+    let [ selectedICategory, setSelectedICategory] = useState('');
+     
+    let [ isEModalOpen, setIsEModalOpen] = useState(-1);
+    let [ selectedECategory, setSelectedECategory] = useState('');
+    
+    let [ wallet, login, logout ] = useWallet()
+
+    let owner = wallet == details?.owner
 
     useEffect(() => {
         async function getData () {
@@ -31,15 +39,26 @@ export default function Organisation ({ params }) {
 
         getData()
     }, [])
-    const openModal = (category, i) => {
-        setSelectedCategory(category);
-        setIsModalOpen(i);
+    const openIModal = (category, i) => {
+        setSelectedICategory(category);
+        setIsIModalOpen(i);
       };
     
       // Function to close the modal
-      const closeModal = () => {
-        setIsModalOpen(-1);
-        setSelectedCategory('');
+      const closeIModal = () => {
+        setIsIModalOpen(-1);
+        setSelectedICategory('');
+      };
+
+    const openEModal = (category, i) => {
+        setSelectedECategory(category);
+        setIsEModalOpen(i);
+      };
+    
+      // Function to close the modal
+      const closeEModal = () => {
+        setIsEModalOpen(-1);
+        setSelectedECategory('');
       };
     return (
         <div className={s.organisation}>
@@ -69,14 +88,22 @@ export default function Organisation ({ params }) {
                             </div>
                             {
                                 details.incomeCategories.map((d, i) => (
-                                    <div>
+                                    <div key = {i}>
                                         <span>{i+1}.</span>
                                         <span>{d.name}</span>
-                                        <span>{d.amount} ETH 
-                                        <button id='modal-root' onClick={() => openModal(d.name, i)}>Payment</button>
-                                            <div>
-                                            <Modal isOpen={isModalOpen == i} closeModal={closeModal} category={selectedCategory} />
-                                            </div>
+                                        <span className={s.pay_button}>{d.amount} ETH 
+                                            { owner ? null : 
+                                                <>
+                                                    <div onClick={() => openIModal(d.name, i)}>
+                                                        <span className="material-symbols-outlined">
+                                                            currency_rupee
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <Modal isOpen={isIModalOpen == i} closeModal={closeIModal} category={selectedICategory} catid = {i} orgid = {params.id} />
+                                                    </div>
+                                                </>
+                                            }
                                         </span>
                                     </div>
                                 ))
@@ -96,14 +123,24 @@ export default function Organisation ({ params }) {
                             </div>
                             {
                                 details.incomeCategories.map((d, i) => (
-                                    <div>
+                                    <div key = {i}>
                                         <span>{i+1}.</span>
                                         <span>{d.name}</span>
-                                        <span>{d.amount} ETH 
-                                        <button id='modal-root' onClick={() => openModal(d.name, i)}>Payment</button>
-                                            <div>
-                                            <Modal isOpen={isModalOpen == i} closeModal={closeModal} category={selectedCategory} />
-                                            </div>
+                                        <span className={s.pay_button}>{d.amount} ETH 
+                                            {
+                                                owner ? 
+                                                <>
+                                                    <div onClick={() => openEModal(d.name, i)}>
+                                                        <span className="material-symbols-outlined">
+                                                            currency_rupee
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <Modal isOpen={isEModalOpen == i} closeModal={closeEModal} category={selectedECategory} catid = {i} orgid = {params.id} />
+                                                    </div>
+                                                </>
+                                                : null
+                                            }
                                         </span>
                                     </div>
                                 ))

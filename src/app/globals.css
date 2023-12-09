@@ -23,6 +23,7 @@
 	font-weight: 600;
 	font-size: 18px;
 	cursor: pointer;
+	text-align: center;
 }
 
 .button.minimal {
@@ -33,4 +34,30 @@
 .button.bright {
 	color: var(--color);
 	background-color: var(--accent);
+}
+
+.button.bright.disabled {
+	background-color: var(--accent-transparent);
+	color: #888888;
+}
+
+
+
+input, textarea {
+	font-family: sans-serif;
+	border-radius: 5px;
+	padding: 15px 15px;
+	font-size: 16px;
+	background-color: #ffffffcc;
+	outline: none;
+	border: none;
+	transition: 200ms;
+}
+
+input:focus, textarea:focus {
+	background-color: #ffffffee;
+}
+
+input:disabled, textarea:disabled {
+	background-color: #ffffff55;
 }
