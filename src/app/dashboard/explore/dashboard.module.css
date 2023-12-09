@@ -1,3 +1,10 @@
 .dashboard {
-    
+    height: 100vh;
+    overflow: scroll;
+    margin: 20px;
+}
+
+.dashboard h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
 }

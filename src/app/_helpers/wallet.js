@@ -1,5 +1,6 @@
-import { ethers } from "ethers"
-import { useEffect, useState } from "react"
+"use client"
+
+import { useState } from "react"
 import Web3 from "web3"
 
 export default function useWallet () {

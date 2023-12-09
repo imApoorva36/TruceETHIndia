@@ -1,0 +1,23 @@
+.item { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--accent);
+}
+
+.item .left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.item .left img {
+    max-width: 50px;
+}
+
+.item .balance {
+    font-size: 20px;
+    color: rgb(85, 226, 85);
+    font-weight: 800;
+}

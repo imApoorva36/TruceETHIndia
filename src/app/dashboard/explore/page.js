@@ -4,13 +4,13 @@ import { useEffect, useState } from "react"
 import useWallet from "../../_helpers/wallet"
 import s from "./dashboard.module.css"
 import { createOrganisation, getOrganisations, getOrganizationsByAddress, sendFunds } from "../../_helpers/organisation"
+import ListItem from "./ListItem"
 // import { useRouter } from "next/router"
 
 export default function Dashboard () {
     let [ wallet, login, logout ] = useWallet()
     let [ orgs, setOrgs ] = useState([])
     // let router = useRouter()
-    let [ name, setName ] = useState("")
     let [ id, setId ] = useState("")
 
     useEffect(() => {
@@ -36,12 +36,7 @@ export default function Dashboard () {
         console.log(value)
     }
 
-    async function handleSubmit (e) {
-        e.preventDefault()
 
-        let hash = await createOrganisation(wallet, name, "description", window.ethereum)
-        console.log(hash)
-    }
 
     async function byID () {
         let res = await getOrganizationsByAddress(wallet, window.ethereum)
@@ -71,11 +66,10 @@ export default function Dashboard () {
                 <button type="submit">Send</button>
             </form> */}
 
+            <h1>Explore Organisations</h1>
             <ul>
                 {
-                    orgs.map(data => {
-                        return <li>{data.name} - {data.balance}</li>
-                    })
+                    orgs.map(data => <ListItem data = {data} key = {data.id} />)
                 }
             </ul>
         </main>
