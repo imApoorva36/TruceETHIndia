@@ -8,7 +8,7 @@ export default function ListItem ({ data }) {
         <div className={s.item}>
             <div className={s.left} onClick={() => router.push("/dashboard/organisations/"+data.id)}>
                 <img
-                    src = {"https://api.dicebear.com/7.x/identicon/svg?seed=" + data.owner + data.id}
+                    src = {"https://api.dicebear.com/7.x/identicon/svg?seed=" + data.owner}
                     alt = ""
                 />
                 <div className={s.details}>

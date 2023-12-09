@@ -16,16 +16,19 @@ export default function Dashboard () {
     useEffect(() => {
         async function getData () {
             let res = await getOrganisations(window.ethereum)
-
-            setOrgs(res.map((org, i) => {
+            let n = res[0].length
+            let details = (new Array(n)).fill(false).map((e, i) => {
                 return {
                     id: i,
-                    name: org[0],
-                    description: org[1],
-                    owner: org[2],
-                    balance: parseInt(org[3]._hex) * Math.pow(10, -18)
+                    name: res[0][i],
+                    description: res[1][i],
+                    owner: res[2][i],
+                    balance: parseInt(res[3][i]._hex) * Math.pow(10, -18)
                 }
-            }))
+            })
+
+
+            setOrgs(details)
         }
         
         getData()
