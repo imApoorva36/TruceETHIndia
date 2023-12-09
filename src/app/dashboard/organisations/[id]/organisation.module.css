@@ -19,7 +19,37 @@
 
 .organisation .details {
     border-bottom: 5px dotted var(--accent);
+    display: flex;
 }
+
+.organisation .income .head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.organisation .income button {
+    margin-left: auto;
+    margin-right: 20px;
+    float: right;
+}
+
+.formalButton {
+    /* Formal button styles */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--accent);
+    border: 0px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .formalButton:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
 
 .organisation .details h2 {
     font-size: 18px;
@@ -54,9 +84,10 @@
 
 .table {
     width: 100%;
+    border: var(--accent) 0.5px solid ;
 }
 
-.table div {
+.table>div {
     width: 100%;
     padding: 15px 10px;
     font-size: 20px;

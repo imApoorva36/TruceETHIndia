@@ -24,14 +24,23 @@ export async function getOrganizationsByAddress (wallet, eth) {
     return res
 }
 
-export async function sendFunds (id, amt, eth) {
-    let org = Organisation(eth, true)
-    return await org.sendFunds(id, {
-        value: ethers.utils.parseEther(amt)
-    })
-}
-
 export async function getOrganizationDetails (id, eth) {
     let org = Organisation(eth, false)
     return await org.getOrganizationDetails(id)
+}
+
+export async function createCategory (org_id, name, eth) {
+    let org = Organisation(eth, true)
+
+    const txHash = await org.createCategory(org_id, name, {
+        gasLimit: 300000
+    })
+
+}
+
+export async function sendFunds (org_id, cat_id, amt, eth) {
+    let org = Organisation(eth, true)
+    return await org.sendFunds(org_id, cat_id, {
+        value: ethers.utils.parseEther(amt)
+    })
 }
