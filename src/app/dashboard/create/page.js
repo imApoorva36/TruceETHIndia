@@ -59,11 +59,9 @@ export default function Create () {
     }
 
     async function createGroups () {
-        let groupDetails = [...groups]
-        groupDetails.slice(0, -1)
         const userAlice = await PushAPI.initialize(signer, { env: CONSTANTS.ENV.STAGING });
 
-        const createChannelSettingRes = await userAlice.channel.setting(groupDetails.map(group => (
+        const createChannelSettingRes = await userAlice.channel.setting(groups.slice(0, -1).map(group => (
             {
                 type: 1, // Boolean type
                 default: 0,

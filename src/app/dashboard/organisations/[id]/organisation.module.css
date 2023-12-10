@@ -139,3 +139,10 @@
     background-color: var(--accent);
     cursor: default;
 }
+
+
+
+.chart {
+    width: 500px;
+    margin: 20px auto;
+}

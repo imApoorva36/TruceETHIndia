@@ -1,0 +1,23 @@
+.notify {
+    margin: 30px;
+}
+
+.notify form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 30px 20px;
+}
+
+.notify form .checkboxes {
+    display: flex;
+    gap: 20px;
+}
+
+.checkboxes .checkbox {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}

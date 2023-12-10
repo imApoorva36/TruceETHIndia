@@ -1,13 +1,15 @@
 "use client"
 import { getOrganizationDetails, createCategory} from '@/app/_helpers/organisation'
 import s from './organisation.module.css'
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Modal from './paymodal'
 import useWallet from '@/app/_helpers/wallet'
 import { useRouter } from 'next/navigation'
 import AddIncome from './AddIncome'
 import AddExpenditure from './AddExpenditure'
 import ExpenditureModal from './expenmodal'
+
+import Chart from 'chart.js/auto'
 
 export default function Organisation ({ params }) {
     let router = useRouter()
@@ -25,6 +27,9 @@ export default function Organisation ({ params }) {
     let [ wallet, login, logout ] = useWallet()
 
     let owner = wallet == details?.owner
+
+    let incomeChart = useRef()
+    let expChart = useRef()
 
     useEffect(() => {
         async function getData () {
@@ -51,10 +56,47 @@ export default function Organisation ({ params }) {
             }
 
             setDetails(data)
+
+            new Chart(
+                incomeChart.current,
+                {
+                    type: "pie",
+                    options: {
+                        radius: "90%"
+                    },
+                    data: {
+                        labels: data.incomeCategories.map(i => i.name),
+                        datasets: [{
+                            label: "Fund Analysis",
+                            data: data.incomeCategories.map(i => i.amount),
+                            hoverOffset: 4
+                        }]
+                    }
+                }
+            )
+
+            new Chart(
+                expChart.current,
+                {
+                    type: "pie",
+                    options: {
+                        radius: "90%"
+                    },
+                    data: {
+                        labels: data.expenditureCategories.map(i => i.name),
+                        datasets: [{
+                            label: "Expenditure Analysis",
+                            data: data.expenditureCategories.map(i => i.amount),
+                            hoverOffset: 4
+                        }]
+                    }
+                }
+            )
         }
 
         getData()
     }, [])
+
 
     const openIModal = (category, i) => {
         setSelectedICategory(category);
@@ -101,9 +143,15 @@ export default function Organisation ({ params }) {
                             <h1>{details.name}</h1>
                         </div>
                         <div className={s.right}>
-                            <div className="button minimal" onClick={() => router.push(`/dashboard/organisations/${params.id}/notifications`)}>
-                                Opt-in
-                            </div>
+                            {   owner ?
+                                <div className="button minimal" onClick={() => router.push(`/dashboard/organisations/${params.id}/notify`)}>
+                                    Notify
+                                </div>
+                                :
+                                <div className="button minimal" onClick={() => router.push(`/dashboard/organisations/${params.id}/notifications`)}>
+                                    Opt-in
+                                </div>
+                            }
                         </div>
                     </div>
                     <div className={s.details}>
@@ -151,6 +199,9 @@ export default function Organisation ({ params }) {
                             }
                         </div>
                     </div>
+                    <div className={s.chart}>
+                        <canvas ref = {incomeChart}></canvas>
+                    </div>
                     <div className={s.income}>
                         <div className={s.head}>
                             <h2>Expenditure Analysis</h2>
@@ -197,6 +248,10 @@ export default function Organisation ({ params }) {
                                 ))
                             }
                         </div>
+                    </div>
+
+                    <div className={s.chart}>
+                        <canvas ref = {expChart}></canvas>
                     </div>
                 </>
                 : null

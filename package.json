@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@pushprotocol/restapi": "^1.4.45",
+    "chart.js": "^4.4.1",
     "ethers": "^5.7.2",
     "next": "14.0.4",
     "react": "^18",
