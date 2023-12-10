@@ -17,3 +17,10 @@ This project is built in **ETHIndia 2023** hackathon which aims to develop a dAp
 
 - Send the ETH to the destination account from organization :
   When Organization wants to use the funds with them in this application then they need to give the destination address to which the organization needs to pay and the ETH will be transfered from the smart contract to the destination account.
+
+### Installation steps:
+- git clone <repo>
+- cd Truce_ETHIndia
+- npm install
+- npm run dev
+
