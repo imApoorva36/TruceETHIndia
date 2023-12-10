@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation"
 import useWallet from "./_helpers/wallet"
 import s from "./home.module.css"
+import Design from "./Design"
 
 export default function Home () {
 	let [ wallet, login, logout ] = useWallet()
@@ -10,9 +11,10 @@ export default function Home () {
 
 	return (
 		<main className = {s.home}>
+			<Design />
 			<div className = {s.content}>
-				<h1>OrgETH</h1>
-				<h2>Transparent spendings for organisations.</h2>
+				<img src="/logo.png" alt="" />
+				<h2>Tracking Expenses. &nbsp; Empowering Organizations.</h2>
 				<div className={s.buttons}>
 					<div className={s.buttons}>
 						{

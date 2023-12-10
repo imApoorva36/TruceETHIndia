@@ -5,14 +5,16 @@
     background-color: var(--bg);
 }
 
+
 .home .content {
     padding: 20px;
     margin-left: 300px;
     color: var(--color);
 }
 
-.home .content h1 {
-    font-size: 70px;
+.home .content img {
+    width: 500px;
+    margin-bottom: 30px;
 }
 
 .home .content h2 {
